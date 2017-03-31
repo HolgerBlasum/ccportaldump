@@ -7,13 +7,13 @@ Run "make" to populate it.
 
 Might be useful for answering question such as: "who else uses FRU\_RSA.2?".
 
-Makefile <- what you can do to update the collection (invoking update.pl or 
+* Makefile <- what you can do to update the collection (invoking update.pl or 
 	doing clean-ups)
-pp <- protection profiles
-ppcr <- protection profile certification reports 
-st <- security targets
-stcr <- security target certification reports
-pp-archived <- legacy protection profiles
-ppcr-archived <- legacy protection profile certification reports 
-st-archived <- legacy security targets
-stcr-archived <- legacy security target certification reports
+* pp <- (initially empty) folder for protection profiles
+* ppcr <- (initially empty) folder for protection profile certification reports 
+* st <- (initially empty) folder for security targets
+* stcr <- (initially empty) folder for security target certification reports
+* pp-archived <- (initially empty) folder for legacy protection profiles
+* ppcr-archived <- (initially empty) folder for legacy protection profile certification reports 
+* st-archived <- (initially empty) folder for legacy security targets
+* stcr-archived <- (initially empty) folder for legacy security target certification reports
