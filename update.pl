@@ -6,7 +6,7 @@ use strict;
 
 # check for existence of helper tools
 
-foreach my $tool ('csvtool', 'wget', 'pdftotext', 'grep') { 
+foreach my $tool ('csvtool', 'wget', 'pdftotext', 'ack-grep') { 
 	if (! -e "/usr/bin/$tool" and ! -e "/bin/$tool") {
 		print "'sudo apt-get install $tool' to get $tool first\n";
 	}
@@ -18,19 +18,19 @@ foreach my $tool ('csvtool', 'wget', 'pdftotext', 'grep') {
 if (! -e 'certified_products.csv') {
 	`wget http://www.commoncriteriaportal.org/products/certified_products.csv`;
 }
-`iconv -c certified_products.csv | grep -E  '^"([^"]*"){27}.\$' > certified_products-clean.csv`;
+`ack-grep '^"([^"]*"){27}.\$' certified_products.csv > certified_products-clean.csv`;
 if (! -e 'certified_products-archived.csv') {
 	`wget http://www.commoncriteriaportal.org/products/certified_products-archived.csv`
 }
-`iconv -c certified_products-archived.csv | grep -E  '^"([^"]*"){27}.\$' > certified_products-archived-clean.csv`;
+`ack-grep '^"([^"]*"){27}.\$' certified_products-archived.csv > certified_products-archived-clean.csv`;
 if (! -e 'pps.csv') {
 	`wget http://www.commoncriteriaportal.org/pps/pps.csv`;
 }
-`iconv -c pps.csv | grep -E  '^"([^"]*"){23}.\$' > pps-clean.csv`;
+`ack-grep '^"([^"]*"){23}.\$' pps.csv > pps-clean.csv`;
 if (! -e 'pps-archived.csv') {
 	`wget http://www.commoncriteriaportal.org/pps/pps-archived.csv`;
 }
-`iconv -c pps-archived.csv | grep -E  '^"([^"]*"){23}.\$' > pps-archived-clean.csv`;
+`ack-grep '^"([^"]*"){23}.\$' pps-archived.csv > pps-archived-clean.csv`;
 
 sub posix {
 
@@ -53,6 +53,8 @@ sub update_dir {
 		# normalize URL
 		$fn =~ s/.*\///;
 		$fn =~ s/%20/ /g;
+		$fn =~ s/%5B/[/g;
+		$fn =~ s/%5D/]/g;
 		# fix commoncriteriaportal (temporary?) CSV sheet bug
 		if ($target =~ "^pp") {
 			$url =~ s/epfiles/ppfiles/;
