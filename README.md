@@ -17,3 +17,5 @@ Might be useful for answering question such as: "who else uses FRU\_RSA.2?".
 * ppcr-archived <- (initially empty) folder for legacy protection profile certification reports 
 * st-archived <- (initially empty) folder for legacy security targets
 * stcr-archived <- (initially empty) folder for legacy security target certification reports
+
+Note: the total number of downloaded files will be somewhat lower (as of 2017: about 25%) than the number of lines in the csv, this is mostly due to that the same ST/PP may occur multiple times in the csv (e.g. multiple product classes).
