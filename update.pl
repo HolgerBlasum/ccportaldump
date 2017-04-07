@@ -50,12 +50,15 @@ sub update_dir {
 		print $url; 
 		chomp $url;
 		my $fn = $url;
-		# normalize URL
+		# filename is part after slash
 		$fn =~ s/.*\///;
-		$fn =~ s/%20/ /g;
-		$fn =~ s/%5B/[/g;
-		$fn =~ s/%5D/]/g;
-		# fix commoncriteriaportal (temporary?) CSV sheet bug
+		# normalize filename
+		# replace any %-encoded characters
+		while ($fn =~ /%([A-E0-9]{2})/) {
+			my $char = chr(hex($1));
+			$fn =~ s/%([A-E0-9]{2})/$char/g;
+		}
+		# fix commoncriteriaportal (temporary?) CSV sheet bug for PP entries
 		if ($target =~ "^pp") {
 			$url =~ s/epfiles/ppfiles/;
 		}
