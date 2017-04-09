@@ -56,7 +56,7 @@ sub update_dir {
 		# replace any %-encoded characters
 		while ($fn =~ /%([A-E0-9]{2})/) {
 			my $char = chr(hex($1));
-			$fn =~ s/%([A-E0-9]{2})/$char/g;
+			$fn =~ s/%([A-E0-9]{2})/$char/;
 		}
 		# fix commoncriteriaportal (temporary?) CSV sheet bug for PP entries
 		if ($target =~ "^pp") {
