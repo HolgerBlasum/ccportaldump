@@ -19,3 +19,7 @@ Might be useful for answering question such as: "who else uses FRU\_RSA.2?".
 * stcr-archived <- (initially empty) folder for legacy security target certification reports
 
 Note: the total number of downloaded files will be somewhat lower (as of 2017: about 25%) than the number of lines in the csv, this is mostly due to that the same ST/PP may occur multiple times in the csv (e.g. multiple product classes).
+
+The default mode of "make" is that only not-yet-downloaded PDFs are downloaded.  Run "make clean" to remove existing PDFs (but then you will have to download everything afresh).
+
+The interface for an update of the downloaded csv files is to simply delete the csv files, then a fresh copy of the csv files will be downloaded again by invoking "make".
