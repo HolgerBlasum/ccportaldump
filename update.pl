@@ -6,7 +6,7 @@ use strict;
 
 # check for existence of helper tools
 
-foreach my $tool ('csvtool', 'wget', 'pdftotext', 'ack-grep') { 
+foreach my $tool ('csvtool', 'wget', 'pdftotext', 'ack') { 
 	if (! -e "/usr/bin/$tool" and ! -e "/bin/$tool") {
 		print "'sudo apt-get install $tool' to get $tool first\n";
 	}
@@ -18,19 +18,19 @@ foreach my $tool ('csvtool', 'wget', 'pdftotext', 'ack-grep') {
 if (! -e 'certified_products.csv') {
 	`wget http://www.commoncriteriaportal.org/products/certified_products.csv`;
 }
-`ack-grep '^"([^"]*"){27}.\$' certified_products.csv > certified_products-clean.csv`;
+`ack '^"([^"]*"){27}.\$' certified_products.csv > certified_products-clean.csv`;
 if (! -e 'certified_products-archived.csv') {
 	`wget http://www.commoncriteriaportal.org/products/certified_products-archived.csv`
 }
-`ack-grep '^"([^"]*"){27}.\$' certified_products-archived.csv > certified_products-archived-clean.csv`;
+`ack '^"([^"]*"){27}.\$' certified_products-archived.csv > certified_products-archived-clean.csv`;
 if (! -e 'pps.csv') {
 	`wget http://www.commoncriteriaportal.org/pps/pps.csv`;
 }
-`ack-grep '^"([^"]*"){23}.\$' pps.csv > pps-clean.csv`;
+`ack '^"([^"]*"){23}.\$' pps.csv > pps-clean.csv`;
 if (! -e 'pps-archived.csv') {
 	`wget http://www.commoncriteriaportal.org/pps/pps-archived.csv`;
 }
-`ack-grep '^"([^"]*"){23}.\$' pps-archived.csv > pps-archived-clean.csv`;
+`ack '^"([^"]*"){23}.\$' pps-archived.csv > pps-archived-clean.csv`;
 
 sub posix {
 
@@ -62,6 +62,8 @@ sub update_dir {
 		if ($target =~ "^pp") {
 			$url =~ s/epfiles/ppfiles/;
 		}
+		# fix archaic 443 notation for https
+		$url =~ s/http:\/\/www.commoncriteriaportal.org:443/https:\/\/www.commoncriteriaportal.org/;
 		# POSIX-normalize file names
 		my $pfn = posix($fn);
 		print "FILENAME($fn)\n";
