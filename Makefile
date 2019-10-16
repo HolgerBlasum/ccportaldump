@@ -1,7 +1,9 @@
 all:
 	perl update.pl
 
-clean: cleanpdf cleantxt
+clean: cleanpdf cleantxt cleancsv
+
+cleancsv: 
 	rm certified_products.csv certified_products-archived.csv pps.csv pps-archived.csv certified_products-clean.csv certified_products-archived-clean.csv pps-clean.csv pps-archived-clean.csv 
 
 cleanpdf:
